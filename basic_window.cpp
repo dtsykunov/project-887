@@ -54,15 +54,7 @@ int main() {
 
   // GLX, create XVisualInfo, this is the minimum visuals we want
   const auto visual = [&] {
-    GLint glxAttribs[] = {GLX_RGBA,
-                          GLX_DOUBLEBUFFER,
-                          GLX_RED_SIZE,
-                          8,
-                          GLX_GREEN_SIZE,
-                          8,
-                          GLX_BLUE_SIZE,
-                          8,
-                          None};
+    GLint glxAttribs[] = {GLX_RGBA, GLX_DOUBLEBUFFER, None};
 
     return std::unique_ptr<XVisualInfo, int (*)(void *)>(
         glXChooseVisual(display.get(), screenId, glxAttribs), XFree);
@@ -75,7 +67,7 @@ int main() {
 
   // Open the window
   const auto window = [&] {
-    XSetWindowAttributes windowAttribs;
+    XSetWindowAttributes windowAttribs{};
     windowAttribs.colormap =
         XCreateColormap(display.get(), RootWindow(display.get(), screenId),
                         visual->visual, AllocNone);
@@ -137,7 +129,7 @@ int main() {
     };
     case ButtonPress: {
       buttonPressed = true;
-      [[fallthrough]];
+      // [[fallthrough]];
     };
     case MotionNotify: {
       if (start - previous < (1000ms / 60)) {
