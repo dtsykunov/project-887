@@ -1,4 +1,5 @@
 # project-887
+
 Test task for JetBrains internship
 
 ## Dependencies
@@ -7,6 +8,59 @@ Test task for JetBrains internship
 * GLX 1.4
 * cmake 3.13.4+
 * C++-17 compliant compiler
+
+## Building locally
+
+``` sh
+$ git clone https://github.com/dtsykunov/project-887.git 
+
+$ cd project-887
+
+$ mkdir build
+
+$ cd build
+
+$ cmake -DCMAKE_BUILD_TYPE=Release .. && make
+
+$ ./basic_window
+```
+
+
+## Running with docker
+
+Build the docker image
+
+``` sh
+
+$ docker build -t project-887 .
+
+```
+
+
+(linux) With Xserver running:
+
+``` sh
+
+$ docker run --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro project-887
+
+```
+
+(macos) 
+
+``` sh
+
+$ brew install xquartz
+
+$ xquartz & # Preferences -> Security -> Allow connections from network clients
+
+$ xhost +
+
+# Skip to here if you already know what you're doing
+
+$ docker run -e DISPLAY=docker.for.mac.host.internal:0 project-887
+
+```
+
 
 ## Sources
 
